@@ -1,0 +1,7 @@
+opencv-python>=4.8
+numpy>=1.24
+matplotlib>=3.7
+# detector YOLO, crear_dataset.py y entrenar_yolo.py
+ultralytics>=8.3
+# opcional: ffmpeg para guardar los videos de salida en H.264
+imageio-ffmpeg>=0.5

@@ -1,0 +1,3 @@
+modelo,precision,recall,f1,ap50,etiquetas,predicciones_conf025
+COCO pre-entrenado (yolo11n.pt),0.667,0.087,0.154,0.26,23,3
+HandStats fine-tuning,1.0,0.217,0.357,0.506,23,5

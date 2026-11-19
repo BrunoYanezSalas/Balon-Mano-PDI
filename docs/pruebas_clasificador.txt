@@ -1,0 +1,6 @@
+OK  test_demo_real_es_gol
+OK  test_atajada_rebote
+OK  test_poste
+OK  test_fuera_por_arriba
+OK  test_gol_red_frena
+OK  test_frontal

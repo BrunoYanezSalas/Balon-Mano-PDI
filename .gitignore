@@ -1,0 +1,30 @@
+# videos y resultados (pesan mucho y salen personas)
+videos/*
+!videos/DESCARGAR_VIDEOS.html
+!videos/.gitkeep
+salida/*
+!salida/.gitkeep
+*_anotado.mp4
+*_lanzamientos.csv
+*_mapa_arco.png
+*_arco.json
+
+# pesos de modelos
+*.pt
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+
+HandStats/
+
+# dataset generado (se reconstruye con src/crear_dataset.py)
+dataset/
+runs/
+
+# archivos comprimidos (videos descargados, entregables)
+*.zip

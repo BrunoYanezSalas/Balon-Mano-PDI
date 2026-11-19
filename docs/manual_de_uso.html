@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>HandStats · Manual de uso</title>
+<style>
+  @page { size: A4; margin: 13mm 14mm 13mm 14mm; }
+  :root { --azul:#1d4e89; --gris:#5b6470; --fondo:#f3f5f8; --borde:#d5dbe3; }
+  body { font-family: "Segoe UI", Roboto, Arial, sans-serif; font-size: 9.1pt; line-height: 1.3; color:#1d232b; background:#fff; max-width: 820px; margin: 0 auto; padding: 0 12px; }
+  h1 { font-size: 26pt; color: var(--azul); margin: 0; line-height: 1.1; }
+  h2 { font-size: 13pt; color: var(--azul); border-bottom: 2px solid var(--azul); padding-bottom: 2px; margin: 12px 0 5px; break-after: avoid; }
+  h3 { font-size: 10.6pt; margin: 9px 0 4px; break-after: avoid; }
+  p { margin: 3px 0 6px; text-align: justify; }
+  ul, ol { margin: 3px 0 6px; padding-left: 20px; }
+  ol li, ul li { margin-bottom: 2px; }
+  code { font-family: Consolas, "Courier New", monospace; font-size: 8.6pt; background: var(--fondo); padding: 0 3px; border-radius: 3px; }
+  pre { font-family: Consolas, "Courier New", monospace; font-size: 7.9pt; line-height: 1.25; background: var(--fondo); border: 1px solid var(--borde); border-radius: 5px; padding: 6px 8px; white-space: pre-wrap; break-inside: avoid; margin: 4px 0 7px; }
+  pre.term { background: #0f1720; color: #d7e3ef; border-color: #0f1720; }
+  pre.term .p { color: #7fd17f; }
+  pre.term .c { color: #8a98a8; }
+  table { border-collapse: collapse; width: 100%; margin: 3px 0 7px; font-size: 8.3pt; break-inside: avoid; }
+  th, td { border: 1px solid var(--borde); padding: 2px 5px; text-align: left; vertical-align: top; }
+  th { background: var(--fondo); }
+  figure { margin: 5px 0 8px; text-align: center; break-inside: avoid; }
+  figure img { max-width: 100%; max-height: 200px; border: 1px solid var(--borde); }
+  figcaption { font-size: 8.2pt; color: var(--gris); margin-top: 3px; line-height: 1.25; }
+  .nota { background: #fff7e0; border-left: 4px solid #e0a800; padding: 4px 9px; margin: 5px 0 8px; break-inside: avoid; }
+  .nota.azul { background: #eaf1fa; border-left-color: var(--azul); }
+  .paso { display: inline-block; background: var(--azul); color: #fff; border-radius: 50%; width: 18px; height: 18px; text-align: center; font-weight: bold; font-size: 9pt; line-height: 18px; margin-right: 6px; }
+  .dos { display: flex; gap: 10px; align-items: flex-start; }
+  .dos > * { flex: 1; min-width: 0; }
+  /* portada compacta */
+  .cabecera { display: flex; gap: 16px; align-items: stretch; border-bottom: 3px solid var(--azul); padding-bottom: 10px; margin-bottom: 4px; }
+  .cabecera .izq { flex: 1.25; display: flex; flex-direction: column; }
+  .cabecera .der { flex: 1; text-align: center; }
+  .cabecera .der img { width: 100%; max-height: 265px; object-fit: cover; border: 1px solid var(--borde); }
+  .cabecera .der figcaption { text-align: center; }
+  .sub { font-size: 12pt; color: var(--gris); margin: 3px 0 8px; }
+  .datos { width: 100%; font-size: 9.4pt; margin: 0 0 8px; }
+  .datos td { border: none; padding: 1px 4px 1px 0; }
+  .indice h3 { color: var(--azul); border-bottom: 1px solid var(--borde); margin: 0 0 3px; font-size: 10.5pt; }
+  .indice table { border: none; margin: 0; font-size: 9pt; }
+  .indice td { border: none; border-bottom: 1px dotted var(--borde); padding: 1px 3px; }
+  .indice td:last-child { text-align: right; width: 30px; }
+  .indice a { color: inherit; text-decoration: none; }
+  .diagrama { margin: 4px 0 8px; break-inside: avoid; }
+  .diagrama svg { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div class="izq">
+    <h1>HandStats</h1>
+    <div class="sub">Análisis automático de lanzamientos al arco en balonmano · <b>Manual de uso</b></div>
+    <table class="datos">
+      <tr><td><b>Asignatura</b></td><td>TEL-328 Procesamiento Digital de Imágenes, UTFSM</td></tr>
+      <tr><td><b>Equipo</b></td><td>Matías Ramos · Ignacio Cubillos · Bruno Yáñez</td></tr>
+      <tr><td><b>Versión</b></td><td>Entrega final, noviembre 2026</td></tr>
+      <tr><td><b>Código</b></td><td><a href="https://github.com/BrunoYanezSalas/Balon-Mano-PDI">github.com/BrunoYanezSalas/Balon-Mano-PDI</a></td></tr>
+    </table>
+    <div class="indice"><h3>Índice</h3><table>
+      <tr><td><a href="#s1">1. Qué es HandStats</a></td><td>1</td></tr>
+      <tr><td><a href="#s2">2. Instalación</a></td><td>2</td></tr>
+      <tr><td><a href="#s3">3. Cómo grabar el video</a></td><td>2</td></tr>
+      <tr><td><a href="#s4">4. Uso paso a paso</a></td><td>3</td></tr>
+      <tr><td><a href="#s5">5. Características y cómo funcionan</a></td><td>4</td></tr>
+      <tr><td><a href="#s6">6. Dataset propio y fine-tuning de YOLO</a></td><td>5</td></tr>
+      <tr><td><a href="#s7">7. Resultados de las pruebas</a></td><td>7</td></tr>
+      <tr><td><a href="#s8">8. Problemas frecuentes</a></td><td>7</td></tr>
+      <tr><td><a href="#s9">9. Limitaciones y créditos</a></td><td>7</td></tr>
+    </table></div>
+  </div>
+  <figure class="der"><img src="img/zoom_27.jpg" alt="Trayectoria del balón detectada">
+  <figcaption>Gol real procesado por HandStats: trayectoria del balón (rojo) y grilla de zonas del arco (amarillo).</figcaption></figure>
+</div>
+
+<h2 id="s1">1. Qué es HandStats</h2>
+<p>HandStats es un conjunto de programas en Python que, a partir del video de un lanzamiento al arco de balonmano, encuentra el balón, sigue su trayectoria desde la mano del lanzador hasta el arco y entrega el resultado del lanzamiento:</p>
+<ul>
+  <li><b>GOL</b>: el balón entra al arco y la red lo frena.</li>
+  <li><b>ATAJADA</b>: el balón llega al arco y rebota o se desvía de golpe. Se informa <b>dónde ataja el arquero</b>, en centímetros del arco y en una de las 9 zonas.</li>
+  <li><b>POSTE</b>: el rebote ocurre pegado al marco (postes o travesaño).</li>
+  <li><b>FUERA</b>: el balón pasa cerca del arco sin entrar.</li>
+</ul>
+<p>Para cada lanzamiento se indica además la <b>zona del arco</b> (grilla de 3 x 3: alta / media / baja por izquierda / centro / derecha), el instante y la posición en centímetros sobre el plano del arco (300 x 200 cm). Los resultados se entregan como videos anotados, una figura con la trayectoria, un CSV con la posición del balón cuadro a cuadro y un archivo de texto con el resultado. La idea nació de una reunión con la Federación de Balonmano de Chile, que necesita estadísticas de lanzamientos de sus jugadores sin anotarlas a mano mirando los videos.</p>
+<table>
+  <tr><th style="width:28%">Programa</th><th>Para qué sirve</th></tr>
+  <tr><td><code>src/marcar_esquinas.py</code></td><td>Elegir un cuadro del video y marcar con 4 clicks las esquinas del arco. Entrega el comando listo para el paso siguiente.</td></tr>
+  <tr><td><code>src/pipeline_balon.py</code></td><td>Programa principal. Estabiliza el video, detecta y sigue el balón, y clasifica el lanzamiento.</td></tr>
+  <tr><td><code>src/clasificacion.py</code></td><td>Módulo que decide GOL / ATAJADA / POSTE / FUERA y calcula zona y punto en cm (lo usan los otros programas).</td></tr>
+  <tr><td><code>src/demo_arco.py</code></td><td>Versión para cámara fija frontal (trípode detrás del lanzador). Procesa varios lanzamientos seguidos y dibuja un mapa del arco.</td></tr>
+  <tr><td><code>src/crear_dataset.py</code>, <code>src/entrenar_yolo.py</code></td><td>Construyen un dataset propio del balón y hacen el fine-tuning de YOLO, comparándolo con el modelo pre-entrenado.</td></tr>
+  <tr><td><code>tests/test_clasificacion.py</code></td><td>Pruebas automáticas del clasificador (gol, atajada, poste, fuera, cámara frontal).</td></tr>
+</table>
+
+<h2 id="s2">2. Instalación</h2>
+<div class="dos">
+<div>
+<h3>2.1 Requisitos</h3>
+<ul>
+  <li>Python 3.10 o superior (probado con Python 3.11 en Windows 10 y Python 3.14 en Windows 11).</li>
+  <li>Unos 2 GB libres (librerías + PyTorch para YOLO).</li>
+  <li>Opcional: GPU NVIDIA con CUDA para entrenar YOLO más rápido. Sin GPU todo funciona en CPU.</li>
+</ul>
+</div>
+<div>
+<h3>2.2 Librerías (<code>requirements.txt</code>)</h3>
+<table>
+  <tr><th>Librería</th><th>Uso en el proyecto</th></tr>
+  <tr><td><code>opencv-python</code></td><td>Video, ORB, homografías, diferencia de cuadros, morfología, dibujo.</td></tr>
+  <tr><td><code>numpy</code></td><td>Cálculo numérico (trayectorias, velocidades).</td></tr>
+  <tr><td><code>matplotlib</code></td><td>Mapa del arco con todos los lanzamientos.</td></tr>
+  <tr><td><code>ultralytics</code></td><td>Red YOLO: detección, entrenamiento y evaluación. Instala PyTorch.</td></tr>
+  <tr><td><code>imageio-ffmpeg</code></td><td>Opcional. Guarda los videos de salida en H.264.</td></tr>
+</table>
+</div>
+</div>
+<h3>2.3 Pasos</h3>
+<p><span class="paso">1</span>Obtener el código: viene en el archivo <code>3_Codigo_fuente_HandStats_Ramos_Cubillos_Yanez.zip</code> de la entrega o en el repositorio <a href="https://github.com/BrunoYanezSalas/Balon-Mano-PDI"><b>github.com/BrunoYanezSalas/Balon-Mano-PDI</b></a> (botón <i>Code → Download ZIP</i>, o <code>git clone https://github.com/BrunoYanezSalas/Balon-Mano-PDI</code>). Abrir una terminal en la carpeta del código (<code>HandStats</code> en el zip, <code>Balon-Mano-PDI</code> si se clonó); en este manual se le llama <code>HandStats</code>.</p>
+<p><span class="paso">2</span>Crear un entorno virtual e instalar las librerías:</p>
+<pre class="term"><span class="p">PS HandStats&gt;</span> python -m venv .venv
+<span class="p">PS HandStats&gt;</span> .venv\Scripts\activate          <span class="c"># en Linux / macOS: source .venv/bin/activate</span>
+<span class="p">(.venv) PS HandStats&gt;</span> pip install -r requirements.txt</pre>
+<div class="nota azul"><b>Con Visual Studio Code:</b> <i>File → Open Folder</i> y elegir la carpeta <code>HandStats</code>; luego <code>Ctrl+Shift+P</code> → <i>Python: Select Interpreter</i> y elegir el Python donde se instalaron las librerías (o el de <code>.venv</code>). Los comandos de este manual se escriben en la terminal integrada (<i>Terminal → New Terminal</i>), no con el botón ▶, porque los programas necesitan argumentos.</div>
+<p><span class="paso">3</span>Copiar los videos en la carpeta <code>videos/</code>. Los videos de prueba se descargan con los enlaces de <code>videos/DESCARGAR_VIDEOS.html</code> (Wikimedia Commons, licencias libres; detalle en <code>docs/videos.md</code>).</p>
+<p><span class="paso">4</span>Pesos de YOLO en <code>modelos/</code>: <code>handstats_balon.pt</code> (nuestro modelo, ya incluido en el zip y en el repositorio) y <code>yolo11n.pt</code> (modelo de COCO; ultralytics lo descarga solo la primera vez). Solo hacen falta para el detector YOLO.</p>
+<p><span class="paso">5</span>Comprobar la instalación corriendo las pruebas; deben aparecer 6 líneas <code>OK</code>:</p>
+<pre class="term"><span class="p">(.venv) PS HandStats&gt;</span> python tests\test_clasificacion.py
+OK  test_demo_real_es_gol      OK  test_atajada_rebote     OK  test_poste
+OK  test_fuera_por_arriba      OK  test_gol_red_frena      OK  test_frontal</pre>
+
+<h2 id="s3">3. Cómo grabar el video</h2>
+<ul>
+  <li>El <b>arco completo</b> se ve en al menos un cuadro del video, sin jugadores tapando las esquinas.</li>
+  <li>El balón se ve durante el vuelo (no tapado por jugadores) y se distingue del fondo.</li>
+  <li>Con el celular en mano, moverlo poco y apuntar de modo que la pared sobre el arco salga en la imagen (se usa para estabilizar).</li>
+  <li>Montaje recomendado para estadísticas: celular en trípode, detrás del lanzador, de frente al arco, a 60 fps (<code>demo_arco.py</code>).</li>
+  <li>Evitar videos reenviados por WhatsApp: la compresión deja el balón de pocos píxeles.</li>
+</ul>
+
+<h2 id="s4" style="break-before: page">4. Uso paso a paso (pipeline_balon.py)</h2>
+<p>Ejemplo con <code>videos/rusia_gol1.webm</code>: un gol de la Superliga rusa grabado desde la tribuna, con la cámara siguiendo la jugada.</p>
+
+<h3><span class="paso">1</span>Marcar el arco</h3>
+<pre class="term"><span class="p">(.venv) PS HandStats&gt;</span> python src\marcar_esquinas.py videos\rusia_gol1.webm</pre>
+<div class="dos">
+<figure style="margin-top:0"><img src="img/marcar_esquinas.png" alt="Ventana de marcar_esquinas" style="max-height:178px">
+<figcaption>Figura 1. Ventana de <code>marcar_esquinas.py</code> con las 4 esquinas marcadas (1 a 4) en el cuadro 96.</figcaption></figure>
+<div>
+<p>Se abre una ventana con el video. Con la barra <b>cuadro</b> se busca un cuadro donde el arco se vea completo (aquí, el 96). Después se hace click en las 4 esquinas <b>interiores</b> del arco en este orden: superior izquierda, superior derecha, inferior derecha, inferior izquierda (como se ven en la imagen). Teclas: <code>z</code> deshace, <code>s</code> guarda una captura, <code>q</code> sale. Al marcar la cuarta esquina, la terminal muestra el comando listo para copiar:</p>
+<pre class="term">--ref 96 --esquinas 1205,160 1405,160 1405,740 1205,578
+Comando:
+python src/pipeline_balon.py videos/rusia_gol1.webm --ref 96 --esquinas 1205,160 1405,160 1405,740 1205,578 --hasta 165 --salida salida</pre>
+</div>
+</div>
+
+<h3><span class="paso">2</span>Procesar el lanzamiento</h3>
+<p>Se pega el comando, acotando con <code>--desde</code> y <code>--hasta</code> el tramo donde ocurre el tiro (es más rápido y evita otras jugadas). Tarda unos 10 segundos:</p>
+<pre class="term"><span class="p">(.venv) PS HandStats&gt;</span> python src\pipeline_balon.py videos\rusia_gol1.webm --desde 70 --hasta 110 --ref 96 --esquinas 1205,160 1405,160 1405,740 1205,578 --salida salida\rusia_gol1
+cuadros 70-110 | balón esperado ~55 px (escala 6.89)
+1/4 estabilizando...   2/4 detectando candidatos (dif)...   3/4 siguiendo...   4/4 analizando...
+Pista balón: cuadros 86-96 (11 detecciones), vel. máx 67.9 px/cuadro
+Resultado: {'resultado': 'GOL', 'zona': 'media-izq', 't_s': 3.06, 'x_cm': 23, 'y_cm': 118, 'confianza': 'baja'}
+Listo -> salida/rusia_gol1</pre>
+<p>La línea <b>Resultado</b> resume el lanzamiento. <code>confianza: baja</code> aparece cuando el balón deja de verse justo al entrar (aquí lo tapa el poste) y el gol se decide solo por la entrada.</p>
+<table>
+  <tr><th style="width:21%">Parámetro</th><th>Qué es</th><th style="width:36%">Cuándo usarlo</th></tr>
+  <tr><td><code>--ref</code>, <code>--esquinas</code></td><td>Cuadro de referencia y x,y de las 4 esquinas interiores</td><td>Siempre (los entrega <code>marcar_esquinas.py</code>)</td></tr>
+  <tr><td><code>--desde</code>, <code>--hasta</code></td><td>Tramo del video a procesar (cuadros)</td><td>Videos con varias jugadas</td></tr>
+  <tr><td><code>--detector</code></td><td><code>dif</code> (clásico, por defecto) o <code>yolo</code></td><td>YOLO si el balón se mezcla con otros movimientos</td></tr>
+  <tr><td><code>--modelo</code>, <code>--conf</code></td><td>Pesos de YOLO y umbral de confianza</td><td>Con <code>--detector yolo</code></td></tr>
+  <tr><td><code>--estatica</code></td><td>Altura máxima (y) de la zona sin jugadores para estabilizar</td><td>Si el video estabilizado "baila"</td></tr>
+  <tr><td><code>--balon-px</code></td><td>Diámetro del balón en píxeles</td><td>Si el cálculo automático no calza</td></tr>
+  <tr><td><code>--fps</code></td><td>Cuadros por segundo reales</td><td>Archivos con fps erróneo (videos u18: <code>--fps 30</code>)</td></tr>
+  <tr><td><code>--salida</code></td><td>Carpeta de resultados (se crea sola)</td><td>Siempre</td></tr>
+</table>
+
+<h3><span class="paso">3</span>Revisar los resultados</h3>
+<table>
+  <tr><th style="width:21%">Archivo</th><th>Contenido</th></tr>
+  <tr><td><code>demo_balon.mp4</code></td><td>Video original con el arco (amarillo) seguido aunque la cámara se mueva, la trayectoria (rojo) y el balón (círculo verde). A la derecha, la máscara de movimiento del video estabilizado.</td></tr>
+  <tr><td><code>demo_zoom_lento.mp4</code></td><td>Zoom al arco en cámara lenta (x4), desde el lanzador hasta el final de la jugada.</td></tr>
+  <tr><td><code>trayectoria_balon.png</code> / <code>.csv</code></td><td>Trayectoria completa sobre el cuadro de referencia; el CSV tiene una fila por cuadro: <code>frame, t_s, x_px_ref, y_px_ref, dentro_arco</code>.</td></tr>
+  <tr><td><code>resultado.txt</code></td><td>Resultado, zona, instante y punto (cm) del lanzamiento.</td></tr>
+  <tr><td><code>etiquetas_balon.csv</code></td><td>Posición del balón en el video original, para agregarla al dataset de YOLO (sección 6).</td></tr>
+</table>
+<figure><img src="img/demo_balon_22.jpg" alt="demo_balon.mp4" style="max-height:none; width:100%">
+<figcaption>Figura 2. Un cuadro de <code>demo_balon.mp4</code>. Izquierda: video original con el arco, la grilla de zonas, la trayectoria y el resultado arriba. Derecha: máscara de movimiento (diferencia de 3 cuadros) del video estabilizado, con el balón en verde.</figcaption></figure>
+<div class="dos">
+<figure><img src="img/zoom_27.jpg" alt="zoom" style="max-height:190px"><figcaption>Figura 3. <code>demo_zoom_lento.mp4</code>: zoom al arco y máscara.</figcaption></figure>
+<figure><img src="img/trayectoria_rusia_gol1.png" alt="trayectoria" style="max-height:190px"><figcaption>Figura 4. <code>trayectoria_balon.png</code>: trayectoria y punto de entrada (círculo verde).</figcaption></figure>
+<div style="flex:1.2"><p><b>Cómo leer el resultado.</b> La zona se calcula con el punto donde la red frena el balón (gol) o donde rebota (atajada o poste), proyectado al plano del arco. <code>x_cm</code> va de 0 (poste izquierdo en la imagen) a 300 y <code>y_cm</code> de 0 (travesaño) a 200 (suelo). En el ejemplo, (23, 118) cm cae en la columna izquierda y la fila del medio: <b>media-izq</b>.</p>
+<p>Con el detector YOLO propio (<code>--detector yolo</code>) el mismo tiro da GOL media-izq en (22, 117) cm.</p></div>
+</div>
+
+<h2 id="s5">5. Características y cómo funcionan</h2>
+<p>El procesamiento sigue estas etapas. Las esquinas del arco vienen de <code>marcar_esquinas.py</code>; todo lo demás lo hace <code>pipeline_balon.py</code> (o <code>demo_arco.py</code> con cámara fija):</p>
+<div class="diagrama">
+<svg viewBox="0 0 700 118" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif" role="img" aria-label="Diagrama del pipeline de HandStats">
+  <defs><marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1d4e89"/></marker></defs>
+  <g font-size="9.5" text-anchor="middle" fill="#1d232b">
+    <rect x="11" y="8" width="98" height="64" rx="7" fill="#f3f5f8" stroke="#5b6470"/>
+    <text x="60" y="30" font-weight="bold" font-size="11">Video</text><text x="60" y="46">celular en mano</text><text x="60" y="59">o en trípode</text>
+    <rect x="127" y="8" width="98" height="64" rx="7" fill="#eaf1fa" stroke="#1d4e89"/>
+    <text x="176" y="30" font-weight="bold" font-size="11">1. Estabilización</text><text x="176" y="46">ORB + test de Lowe</text><text x="176" y="59">homografía RANSAC</text>
+    <rect x="243" y="8" width="98" height="64" rx="7" fill="#eaf1fa" stroke="#1d4e89"/>
+    <text x="292" y="30" font-weight="bold" font-size="11">2. Arco</text><text x="292" y="46">4 esquinas →</text><text x="292" y="59">homografía a cm</text>
+    <rect x="359" y="8" width="98" height="64" rx="7" fill="#eaf1fa" stroke="#1d4e89"/>
+    <text x="408" y="30" font-weight="bold" font-size="11">3. Detección</text><text x="408" y="46">diferencia 3 cuadros</text><text x="408" y="59">o YOLO propio</text>
+    <rect x="475" y="8" width="98" height="64" rx="7" fill="#eaf1fa" stroke="#1d4e89"/>
+    <text x="524" y="30" font-weight="bold" font-size="11">4. Seguimiento</text><text x="524" y="46">velocidad constante</text><text x="524" y="59">+ extensión atrás</text>
+    <rect x="591" y="8" width="98" height="64" rx="7" fill="#e8f6ec" stroke="#2e8b57"/>
+    <text x="640" y="30" font-weight="bold" font-size="11">5. Clasificación</text><text x="640" y="46">GOL · ATAJADA</text><text x="640" y="59">POSTE · FUERA</text>
+  </g>
+  <g stroke="#1d4e89" stroke-width="1.6" marker-end="url(#fl)">
+    <line x1="109" y1="40" x2="126" y2="40"/><line x1="225" y1="40" x2="242" y2="40"/><line x1="341" y1="40" x2="358" y2="40"/><line x1="457" y1="40" x2="474" y2="40"/><line x1="573" y1="40" x2="590" y2="40"/>
+  </g>
+  <g stroke="#8a98a8" stroke-width="1" fill="none"><path d="M131,80 v6 H569 v-6"/><path d="M595,80 v6 H685 v-6"/></g>
+  <g font-size="9" text-anchor="middle" fill="#5b6470" font-family="Consolas, monospace">
+    <text x="350" y="100">pipeline_balon.py  (demo_arco.py con cámara fija)</text><text x="640" y="100">clasificacion.py</text>
+  </g>
+  <text x="350" y="115" font-size="9" text-anchor="middle" fill="#1d4e89">Salidas: demo_balon.mp4 · demo_zoom_lento.mp4 · trayectoria_balon.png/.csv · resultado.txt · etiquetas_balon.csv</text>
+</svg>
+</div>
+<h3>5.1 Estabilización</h3>
+<p>Con la cámara en mano, el arco se mueve en la imagen. En cada cuadro se buscan puntos ORB en la zona estática (pared, techo), se emparejan con los del cuadro de referencia (test de razón de Lowe: el mejor vecino debe estar claramente más cerca que el segundo, razón &lt; 0,75) y se calcula una homografía con RANSAC, que descarta los puntos que caen en jugadores en movimiento. Al aplicarla, todos los cuadros quedan alineados con el de referencia y el arco queda fijo. La zona estática se elige con <code>--estatica</code>; por defecto es todo lo que está sobre la base del arco.</p>
+<h3>5.2 Arco y zonas</h3>
+<p>Con las 4 esquinas se calcula la homografía imagen → plano del arco (300 x 200 cm). Sirve para dibujar la grilla de 3 x 3 zonas en perspectiva y para convertir cualquier punto de la imagen a centímetros del arco. Solo es exacta para puntos sobre ese plano; por eso se mide el punto donde el balón llega al arco y no durante el vuelo.</p>
+<h3>5.3 Detección del balón</h3>
+<p><b>Clásica (<code>--detector dif</code>).</b> Sobre el video estabilizado se calculan las diferencias entre los cuadros t-2 y t, y entre t y t+2, y se combinan con un AND: queda solo lo que se movió en el cuadro t (con dos cuadros el objeto aparecería dos veces). Luego vienen umbral, dilatación, componentes conexas y un filtro de tamaño. El tamaño esperado del balón (19 cm) se calcula con la altura del arco en píxeles, así que funciona tanto en video de celular comprimido (balón de ~5 px) como en 1080p (25-50 px). Se descartan las manchas pegadas a objetos grandes (jugadores).</p>
+<p><b>Red neuronal (<code>--detector yolo</code>).</b> YOLO detecta el balón en cada cuadro original y sus centros se llevan al cuadro de referencia con la homografía de estabilización. Puede usarse el modelo de COCO (clase <i>sports ball</i>) o nuestro modelo con fine-tuning (clase <i>balon</i>, sección 6).</p>
+<h3>5.4 Seguimiento</h3>
+<p>Los candidatos se unen entre cuadros con un modelo de velocidad constante: se predice dónde debería estar el balón y se acepta el candidato más cercano dentro de una ventana que crece si se pierden cuadros. La pista del balón es la que tiene la racha más larga de pasos rápidos en la misma dirección (balón en vuelo); después se completa hacia atrás hasta la mano del lanzador.</p>
+<h3>5.5 Clasificación del lanzamiento (gol, atajada, poste, fuera)</h3>
+<p><code>clasificacion.py</code> lleva la trayectoria al plano del arco (cm) y la analiza:</p>
+<ol>
+  <li><b>Llegada:</b> primer punto de la trayectoria dentro del arco ampliado en 25 cm.</li>
+  <li><b>Rebote:</b> después de la llegada, si un paso rápido apunta en contra de la dirección con que venía el balón (coseno entre velocidades &lt; 0), el balón rebotó. A menos de 12 cm del marco es <b>POSTE</b>; dentro del arco es <b>ATAJADA</b> y ese punto es <b>donde ataja el arquero</b>; si no, <b>FUERA</b>.</li>
+  <li><b>Gol:</b> si no hubo rebote y el balón entra al arco y se frena (velocidad &lt; 40 % de la de llegada: la red lo detiene), es <b>GOL</b>. El punto de impacto es donde se frena.</li>
+  <li>Si nunca llega al arco, pero pasa a menos de 80 cm, es <b>FUERA</b>.</li>
+</ol>
+<figure><img src="img/casos_clasificador.png" alt="Casos del clasificador" style="max-height:none; width:100%">
+<figcaption>Figura 5. Los 5 casos de <code>tests/test_clasificacion.py</code> en el plano del arco (cm). La línea azul es la trayectoria y el círculo es el punto que informa el clasificador. El primero es una trayectoria real; los demás conservan su llegada y cambian lo que pasa después.</figcaption></figure>
+<p>Con cámara frontal (<code>demo_arco.py</code>) se usa el diámetro aparente del balón: al alejarse de la cámara se achica, y la llegada al arco es cuando coincide con el esperado a esa distancia. Si después vuelve a crecer más de 25 %, el balón rebotó hacia la cámara: atajada o poste. En los videos, GOL se dibuja en verde, ATAJADA en naranjo, POSTE en amarillo y FUERA en rojo.</p>
+
+<h3>5.6 Cámara fija frontal (demo_arco.py)</h3>
+<p>Pensado para el montaje definitivo con trípode. Recibe un video propio de una sesión de lanzamientos (en los ejemplos, <code>videos\sesion.mp4</code>, que no se incluye porque los videos públicos que conseguimos son de cámara lateral):</p>
+<pre class="term"><span class="p">(.venv) PS HandStats&gt;</span> python src\demo_arco.py videos\sesion.mp4 --modelo modelos\handstats_balon.pt   <span class="c"># YOLO propio</span>
+<span class="p">(.venv) PS HandStats&gt;</span> python src\demo_arco.py videos\sesion.mp4 --metodo fondo --esquinas 812,402 1110,398 1112,600 810,604</pre>
+<p>Pide las 4 esquinas con clicks (o se pasan con <code>--esquinas</code>) y las guarda en <code>&lt;video&gt;_arco.json</code>. Procesa todos los lanzamientos y genera <code>&lt;video&gt;_anotado.mp4</code>, <code>&lt;video&gt;_lanzamientos.csv</code> (una fila por lanzamiento: instante, resultado, zona, x_cm, y_cm) y <code>&lt;video&gt;_mapa_arco.png</code> (todos los tiros sobre el arco, coloreados por resultado). Con <code>--metodo fondo</code> usa sustracción de fondo (MOG2) en lugar de YOLO.</p>
+
+<h2 id="s6">6. Dataset propio y fine-tuning de YOLO</h2>
+<p>El YOLO pre-entrenado con COCO casi no detecta el balón de balonmano en vuelo: a 30 fps el balón sale desenfocado (una mancha alargada), y en COCO la clase <i>sports ball</i> son sobre todo balones quietos o de fútbol. Por eso entrenamos un modelo propio con una sola clase, <code>balon</code>.</p>
+<h3>6.1 Crear el dataset</h3>
+<pre class="term"><span class="p">(.venv) PS HandStats&gt;</span> python src\crear_dataset.py videos\rusia_gol1.webm videos\rusia_gol2.webm videos\selestat1.ogg videos\u18_action.webm videos\u18_but.webm videos\selestat2.ogg --modelo modelos\yolo11n.pt --val selestat2 --salida dataset</pre>
+<p>El etiquetado es <b>semiautomático</b>, con dos "profesores" y revisión manual:</p>
+<ol>
+  <li><b>YOLO de COCO</b> con umbral bajo (0,05) a resolución completa. Sus detecciones se unen en pistas y solo se aceptan pistas largas que se mueven; los huecos cortos se rellenan interpolando.</li>
+  <li><b>Pipeline clásico:</b> la trayectoria que encuentra <code>pipeline_balon.py</code> se exporta en <code>etiquetas_balon.csv</code> (por ejemplo <code>dataset_etiquetas/pipeline_rusia_gol1.csv</code>). También se agregan etiquetas hechas a mano (<code>manual_u18_but.csv</code>).</li>
+  <li>Se guardan recortes de 640 x 640 alrededor del balón (sin achicar la imagen) y recortes sin balón como ejemplos negativos.</li>
+  <li><b>Revisión manual:</b> el programa genera mosaicos <code>dataset/revision_XX.jpg</code> con cada etiqueta numerada; las malas se borran por número, y parte de ellas se guarda como <b>negativo difícil</b> (imagen sin balón):</li>
+</ol>
+<pre class="term"><span class="p">(.venv) PS HandStats&gt;</span> python src\crear_dataset.py --salida dataset --descartar 1 2 3 4 5
+<span class="p">(.venv) PS HandStats&gt;</span> python src\crear_dataset.py --salida dataset --extra dataset_etiquetas\*.csv --val u18_but</pre>
+<figure><img src="img/revision_mosaico.jpg" alt="mosaico de revisión" style="max-height:135px">
+<figcaption>Figura 6. Parte de un mosaico de revisión. El profesor COCO confunde focos del techo, marcas del piso y zapatillas con el balón; esos recortes se descartan a mano.</figcaption></figure>
+<h3>6.2 Entrenar y evaluar</h3>
+<pre class="term"><span class="p">(.venv) PS HandStats&gt;</span> python src\entrenar_yolo.py --datos dataset\data.yaml --base modelos\yolo11n.pt --epocas 25 --imgsz 512
+<span class="p">(.venv) PS HandStats&gt;</span> python src\entrenar_yolo.py --datos dataset\data.yaml --base modelos\yolo11n.pt --device 0   <span class="c"># con GPU</span></pre>
+<p>Parte de los pesos de COCO (<code>yolo11n.pt</code>) y entrena con aumentaciones (giro, escala, brillo, volteo horizontal). Sin <code>--epocas</code> ni <code>--imgsz</code> usa 40 épocas a 640 px; nuestro modelo se entrenó con el primer comando (25 épocas a 512 px en CPU, 32 minutos). Al terminar guarda <code>modelos/handstats_balon.pt</code> y lo compara con el de COCO sobre el conjunto de validación: 38 imágenes de videos no usados para entrenar (23 balones: <code>selestat2</code> y el vuelo de <code>u18_but</code> etiquetado a mano). Precisión, recall y F1 con confianza 0,25; AP50 con todas las predicciones.</p>
+<table><tr><th>Modelo</th><th>Precisión</th><th>Recall</th><th>F1</th><th>AP50</th></tr><tr><td>COCO pre-entrenado (<code>yolo11n.pt</code>)</td><td>0.667</td><td>0.087</td><td>0.154</td><td>0.26</td></tr><tr><td>HandStats fine-tuning (<code>handstats_balon.pt</code>)</td><td>1.0</td><td>0.217</td><td>0.357</td><td>0.506</td></tr></table>
+<p>El modelo propio casi duplica el AP50 (0,26 → 0,51) y no tiene falsos positivos con confianza 0,25. Como la validación es chica, conviene leer las cifras como conteos: el recall pasa de encontrar 2 a 5 de los 23 balones, y la precisión 1,0 son 5 aciertos en 5 predicciones. El recall sigue bajo porque el balón en vuelo a 30 fps sale como una estela larga y hay pocos ejemplos así; se mejora grabando más lanzamientos (idealmente a 60 fps) y entrenando con GPU.</p>
+<div class="dos" style="align-items:flex-end">
+<figure style="flex:0.75"><img src="img/comparacion_recorte.png" style="max-height:165px"><figcaption>Figura 7. Validación: COCO (izq.) vs. fine-tuning (der.). El modelo propio encuentra balones que COCO no ve.</figcaption></figure>
+<figure style="flex:1.25"><img src="img/entrenamiento_curvas.png" style="max-height:165px"><figcaption>Figura 8. Curvas de pérdida y métricas durante el entrenamiento.</figcaption></figure>
+</div>
+
+<h2 id="s7">7. Resultados de las pruebas</h2>
+<table><tr><th>Video</th><th>Detector</th><th>Resultado del sistema</th><th>Real</th><th>Comentario</th></tr>
+<tr><td>penal1 (avance)*</td><td>dif. 3 cuadros</td><td>GOL alta</td><td>GOL</td><td>Trayectoria del video de la entrega de avance; prueba automática</td></tr>
+<tr><td>rusia_gol1</td><td>dif. 3 cuadros</td><td>GOL media-izq</td><td>GOL</td><td>Balón seguido 11 cuadros hasta la red</td></tr>
+<tr><td>rusia_gol1</td><td>YOLO COCO</td><td>sin pista</td><td>GOL</td><td>Detectó el balón en 1 de 15 cuadros</td></tr>
+<tr><td>rusia_gol1</td><td>YOLO propio</td><td>GOL media-izq</td><td>GOL</td><td>10 cuadros; ojo: video usado en entrenamiento</td></tr>
+<tr><td>u18_but</td><td>dif. 3 cuadros</td><td>sin llegada</td><td>GOL</td><td>Siguió a una jugadora: paralaje del piso</td></tr>
+<tr><td>u18_but</td><td>YOLO COCO</td><td>sin pista</td><td>GOL</td><td>No ve el balón en vuelo</td></tr>
+<tr><td>u18_but</td><td>YOLO propio</td><td>sin pista</td><td>GOL</td><td>Ve el balón en 3 de 11 cuadros de vuelo; faltan estelas largas en el dataset</td></tr></table>
+<p style="font-size:8.2pt">* El video <i>penal1</i> (grabado con celular y enviado por WhatsApp) fue el de la entrega de avance y no se incluye; su trayectoria está en <code>docs/trayectoria_balon.csv</code> y es la base de las pruebas automáticas (Figura 5).</p>
+<p>En escenas simples (fondo limpio, pocos jugadores cerca del balón) el método clásico funciona. Con cámara en mano que se desplaza y mucho movimiento cerca, falla por paralaje. El modelo propio mejora la detección, pero todavía no basta en ese caso.</p>
+
+<h2 id="s8">8. Problemas frecuentes</h2>
+<table>
+  <tr><th style="width:27%">Problema</th><th style="width:30%">Causa probable</th><th>Qué hacer</th></tr>
+  <tr><td>"No se encontró una pista de balón"</td><td>El balón no se separa del fondo o el tramo no incluye el tiro.</td><td>Revisar <code>--desde/--hasta</code>; probar <code>--detector yolo</code>; ajustar <code>--balon-px</code>.</td></tr>
+  <tr><td>En la máscara aparecen líneas de la cancha</td><td>Estabilización mala (paralaje del piso o puntos ORB sobre jugadores).</td><td>Bajar <code>--estatica</code> a la pared sobre el arco; elegir un tramo más corto.</td></tr>
+  <tr><td>La pista sigue a un jugador</td><td>Brazo o pierna del tamaño del balón.</td><td>Usar <code>--detector yolo</code> con el modelo propio.</td></tr>
+  <tr><td>Tiempos raros (t_s muy chicos)</td><td>El archivo trae fps erróneo.</td><td>Pasar <code>--fps</code> con el valor real.</td></tr>
+  <tr><td>Videos de salida no se reproducen</td><td>Falta ffmpeg (quedan en MPEG-4).</td><td><code>pip install imageio-ffmpeg</code> o abrir con VLC.</td></tr>
+  <tr><td>VS Code marca <i>Import "cv2" could not be resolved</i></td><td>El intérprete elegido en VS Code no es el que tiene las librerías.</td><td><code>Ctrl+Shift+P</code> → <i>Python: Select Interpreter</i> (sección 2.3). Es solo un aviso del editor.</td></tr>
+  <tr><td>Error <i>the following arguments are required</i></td><td>Se corrió el programa sin argumentos (por ejemplo, con el botón ▶).</td><td>Correrlo desde la terminal con el comando completo (sección 4).</td></tr>
+  <tr><td>Error "The function is not implemented. Rebuild the library..." al abrir una ventana</td><td>Quedó instalado <code>opencv-python-headless</code> (lo trae ultralytics), sin ventanas.</td><td><code>pip uninstall -y opencv-python-headless opencv-python</code> y luego <code>pip install opencv-python</code>.</td></tr>
+  <tr><td>"No module named ultralytics"</td><td>Faltan las librerías de YOLO.</td><td><code>pip install -r requirements.txt</code>.</td></tr>
+</table>
+
+<h2 id="s9">9. Limitaciones</h2>
+<ul>
+  <li>Grabando de lado, la fila de la zona es confiable pero la columna no, porque la cámara no ve la profundidad. El montaje recomendado es frontal y fijo.</li>
+  <li>La estabilización usa un solo plano (la pared). Si quien graba camina, el piso queda desalineado y aparecen falsos movimientos.</li>
+  <li>Las esquinas del arco se marcan a mano, una vez por video.</li>
+  <li>La atajada se reconoce por el <b>rebote</b>. Si el arquero <b>atrapa</b> el balón sin que rebote, el balón se frena dentro del arco igual que con la red y el sistema informa GOL. Distinguirlo requiere ver si el balón sale del arco con el arquero o detectar al arquero.</li>
+  <li>La lógica de atajada y poste se validó con trayectorias de prueba construidas sobre una trayectoria real: los videos públicos que conseguimos son resúmenes de goles. Falta grabar sesiones propias con la Federación.</li>
+  <li>La velocidad del lanzamiento no se estima: con una sola cámara y solo el plano del arco calibrado no se conoce la distancia al lanzador.</li>
+  <li><code>pipeline_balon.py</code> carga el video en memoria (~1 GB para un clip de 5 s en 1080p): se usa con clips cortos de cada lanzamiento, no con un partido completo.</li>
+</ul>
+<p style="font-size:8pt; color:var(--gris)"><b>Créditos de los videos</b> (Wikimedia Commons): "2021-03-31 - Russian Handball Superliga - CSKA v Ufa-Alisa" (goles de E. Rabazulkina y N. Chigirinova), autor Voltmetro, CC BY-SA 4.0. "But (Sélestat) (1)" y "(2)", autor Gzen92, CC BY-SA 4.0. "Championnat de France féminin de handball U18 - Entente Pays de l'Ain vs La Motte-Servolex (2017-11-12)" ("action" y "but"), autor Benoît Prieur, CC0. Las imágenes de este manual son cuadros de esos videos procesados por HandStats.</p>
+
+</body>
+</html>
